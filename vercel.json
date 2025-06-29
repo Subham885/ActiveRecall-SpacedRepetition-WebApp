@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "main.py", // Make sure this matches your main Flask application file
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.9" // Choose your desired Python version supported by Vercel
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "main.py" // This should match the "src" above
+    }
+  ],
+  "env": {
+    "PYTHON_VERSION": "3.9" // Optional, for consistency
+  }
+}
