@@ -14,10 +14,11 @@ from wtforms.validators import DataRequired
 import requests
 from datetime import datetime
 from supermemo import SuperMemo2
+import os
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6dhxhfiya0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get("FLASK_KEY")
 Bootstrap5(app)
 sm2 = SuperMemo2()
 
@@ -215,23 +216,6 @@ def edit_subject(id):
         return redirect(url_for('home'))
     return render_template("edit_subject.html",form = form,id = id)
 
-# @app.route('/add_chapter/<subject_id>',methods = ["POST","GET"])
-# def add_chapter(subject_id):
-#     form = AddChapterForm()
-#     if form.validate_on_submit():
-#         with app.app_context():
-#             chapter = form.chapter.data
-#             parent_id = subject_id
-#             subject = Subject.query.get_or_404(subject_id)
-#             subject_name = subject.Subs
-#             new_chapter = Chapter(
-#                 Chapters=chapter,
-#                 parent_id = parent_id
-#             )
-#             db.session.add(new_chapter)
-#             db.session.commit()
-#         return redirect(url_for("view_chapters",id=subject_id,subject_name = subject_name))
-#     return render_template("add_chapter.html",form = form,id = subject_id)
 
 @app.route('/add_chapter/<subject_id>', methods=["POST", "GET"])
 def add_chapter(subject_id):
