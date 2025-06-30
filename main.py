@@ -28,7 +28,7 @@ sm2 = SuperMemo2()
 # CREATE DB
 class Base(DeclarativeBase):
     pass
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///subjects.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///subjects.db")
 # Create the extension
 db = SQLAlchemy(model_class=Base)
 # Initialise the app with the extension
